@@ -1,11 +1,19 @@
-// api/backend.js
+const express = require('express');
+const cors = require('cors');
+const connectDB = require('../backend/config/connectDB');
+const productsRoute = require('../backend/routes/products');
+const cartRoute = require('../backend/routes/cart');
+const ordersRoute = require('../backend/routes/orders');
 
-const { createServer } = require('http');
-const app = require('../backend/index'); // Adjust path if needed
+const app = express();
+connectDB();
 
-module.exports = (req, res) => {
-    const server = createServer(app);
-    server.emit('request', req, res);
-};
+app.use(cors());
+app.use(express.json());
 
-module.exports = app; 
+app.use('/api/products', productsRoute);
+app.use('/api/cart', cartRoute);
+app.use('/api/orders', ordersRoute);
+
+// Export the handler for Vercel
+module.exports = app;
