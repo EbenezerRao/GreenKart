@@ -57,7 +57,7 @@ export default function CheckoutPage() {
         };
 
         try {
-            const res = await axios.post('http://localhost:5000/api/orders', orderData);
+            const res = await axios.post('/api/orders', orderData);
             if (res.status === 201) {
                 alert('✅ Order Placed Successfully!');
                 clearCart();
